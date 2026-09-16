@@ -11,7 +11,7 @@ const uspjeh = ref(false)
 const dodajClanak = async () => {
   try {
     const response = await axios.post(
-      'https://jsonplaceholder.typicode.com/posts',
+     'http://localhost:3000/api/posts',
       {
         title: title.value,
         body: body.value,

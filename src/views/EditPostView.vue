@@ -15,7 +15,7 @@ const uspjeh = ref(false)
 const dohvatiClanak = async () => {
   try {
     const response = await axios.get(
-      `https://jsonplaceholder.typicode.com/posts/${route.params.id}`
+      `http://localhost:3000/api/posts/${route.params.id}`
     )
 
     title.value = response.data.title
@@ -29,7 +29,7 @@ const dohvatiClanak = async () => {
 const urediClanak = async () => {
   try {
     await axios.put(
-      `https://jsonplaceholder.typicode.com/posts/${route.params.id}`,
+      `http://localhost:3000/api/posts/${route.params.id}`,
       {
         id: route.params.id,
         title: title.value,
