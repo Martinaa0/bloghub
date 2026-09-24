@@ -24,6 +24,81 @@ db.run(`
   )
 `)
 
+// Početni članci
+const pocetniClanci = [
+  {
+    title: 'Kako bolje organizirati svoje vrijeme',
+    body: 'Dobra organizacija vremena može nam pomoći da lakše izvršimo svakodnevne obaveze i pronađemo više vremena za odmor.',
+    userId: 1
+  },
+  {
+    title: 'Moji savjeti za učenje',
+    body: 'Učenje je puno lakše kada napravimo dobar raspored, redovito ponavljamo gradivo i napravimo kratke pauze.',
+    userId: 2
+  },
+  {
+    title: 'Ideje za produktivan dan',
+    body: 'Dan možemo započeti jednostavnim planom obaveza i prvo riješiti najvažnije zadatke.',
+    userId: 3
+  },
+  {
+    title: 'Zašto je važno imati hobi',
+    body: 'Hobiji nam omogućuju da se opustimo, naučimo nešto novo i kvalitetno provedemo slobodno vrijeme.',
+    userId: 4
+  },
+  {
+    title: 'Kako se odmoriti nakon napornog dana',
+    body: 'Šetnja, glazba, druženje ili dobra knjiga mogu biti odličan način za odmor nakon obaveza.',
+    userId: 5
+  },
+  {
+    title: 'Male navike koje čine razliku',
+    body: 'Male svakodnevne navike s vremenom mogu donijeti velike promjene i pomoći nam da budemo organiziraniji.',
+    userId: 6
+  },
+  {
+    title: 'Kako ostati motiviran',
+    body: 'Postavljanje malih i ostvarivih ciljeva može nam pomoći da zadržimo motivaciju i lakše pratimo svoj napredak.',
+    userId: 7
+  },
+  {
+    title: 'Prednosti jutarnje rutine',
+    body: 'Dobra jutarnja rutina može nam pomoći da mirnije započnemo dan i bolje se pripremimo za obaveze.',
+    userId: 8
+  },
+  {
+    title: 'Kako kvalitetno provesti slobodno vrijeme',
+    body: 'Slobodno vrijeme možemo iskoristiti za druženje, sport, čitanje, putovanja ili aktivnosti koje nas vesele.',
+    userId: 9
+  },
+  {
+    title: 'Važnost odmora i sna',
+    body: 'Kvalitetan san i dovoljno odmora važni su za koncentraciju, raspoloženje i uspješno izvršavanje svakodnevnih obaveza.',
+    userId: 10
+  }
+]
+
+// Dodavanje početnih članaka ako već ne postoje
+pocetniClanci.forEach((clanak) => {
+  db.get(
+    'SELECT id FROM posts WHERE title = ?',
+    [clanak.title],
+    (err, row) => {
+      if (err) {
+        console.log('Greška:', err.message)
+        return
+      }
+
+      if (!row) {
+        db.run(
+          'INSERT INTO posts (title, body, userId) VALUES (?, ?, ?)',
+          [clanak.title, clanak.body, clanak.userId]
+        )
+      }
+    }
+  )
+})
+
 // Omogućuje komunikaciju s frontendom
 app.use(cors())
 
